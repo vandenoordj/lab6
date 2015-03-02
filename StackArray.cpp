@@ -2,7 +2,7 @@
 //
 //  Laboratory 6                                       StackArray.cpp
 //
-//
+//   John Vande Noord Lane Colwell
 //
 //--------------------------------------------------------------------
 
@@ -20,10 +20,10 @@ StackArray<DataType>::StackArray(int maxNumber)
 
 // Creates an empty stack.
 
-    : maxSize(maxNumber), top(-1)
-{
-    dataItems = new DataType[maxNumber];
-}
+: maxSize(maxNumber), top(-1)
+  {
+	dataItems = new DataType[maxNumber];
+  }
 
 //--------------------------------------------------------------------
 
@@ -33,15 +33,15 @@ StackArray<DataType>::StackArray(const StackArray& other)
 // Copy constructor for linked stack
 
 : maxSize( other.maxSize ), top( other.top )
-{
-    dataItems = new DataType [ maxSize ];
+  {
+	dataItems = new DataType [ maxSize ];
 
-    // Note: "i<= top" because top is the top item, not the zero-based size.
-    for( int i=0; i<=top; i++ )
-    {
-	dataItems[i] = other.dataItems[i];
-    }
-}
+	// Note: "i<= top" because top is the top item, not the zero-based size.
+	for( int i=0; i<=top; i++ )
+	{
+		dataItems[i] = other.dataItems[i];
+	}
+  }
 
 //--------------------------------------------------------------------
 
@@ -53,26 +53,26 @@ StackArray<DataType>& StackArray<DataType>::operator=(const StackArray& other)
 // it allows chained assignment (e.g., stack1 = stack2 = stack3).
 
 {
-    // Self-assignment protection
-    if( this != &other ) return *this;
+	// Self-assignment protection
+	if( this != &other ) return *this;
 
-    if( maxSize < other.maxSize ) {
-	// This object's array is smaller than the other object's array.
-	// Make an equally big array.
+	if( maxSize < other.maxSize ) {
+		// This object's array is smaller than the other object's array.
+		// Make an equally big array.
 
-	delete[] dataItems;
-	dataItems = new DataType [other.maxSize];
-    }
+		delete[] dataItems;
+		dataItems = new DataType [other.maxSize];
+	}
 
-    // Now proceed to copy state data over from other object.
-    maxSize = other.maxSize;
-    top = other.top;
-    for( int i=0; i<=top; i++ )
-    {
-	dataItems[i] = other.dataItems[i];
-    }
+	// Now proceed to copy state data over from other object.
+	maxSize = other.maxSize;
+	top = other.top;
+	for( int i=0; i<=top; i++ )
+	{
+		dataItems[i] = other.dataItems[i];
+	}
 
-    return *this;
+	return *this;
 }
 
 //--------------------------------------------------------------------
@@ -83,7 +83,7 @@ StackArray<DataType>::~StackArray()
 // Frees the memory used by a stack.
 
 {
-    delete[] dataItems;
+	delete[] dataItems;
 }
 
 //--------------------------------------------------------------------
@@ -94,11 +94,12 @@ void StackArray<DataType>::push(const DataType& newDataItem) throw (logic_error)
 // Inserts newDataItem onto the top of a stack.
 
 {
-    if (isFull()) {
-	throw logic_error("push() while stack full");
-    }
-
-    // ADD YOUR CODE HERE (should require only a couple lines of code)
+	if (isFull()) {
+		throw logic_error("push() while stack full");
+	}
+	dataItems[top+1]=newDataItem;
+	top++;
+	// ADD YOUR CODE HERE (should require only a couple lines of code)
 
 
 }
@@ -111,15 +112,15 @@ DataType StackArray<DataType>::pop() throw (logic_error)
 // Removes the topmost data item from a stack and returns it.
 
 {
-    if (isEmpty()) {
-	throw logic_error("pop() while stack empty");
-    }
+	if (isEmpty()) {
+		throw logic_error("pop() while stack empty");
+	}
+	DataType ret=dataItems[top];
+	top--;
+	return ret;
+	// ADD YOUR CODE HERE (should require only one line of code)
 
-    // ADD YOUR CODE HERE (should require only one line of code)
 
-
-
-    return dataItems[top];
 }
 
 //--------------------------------------------------------------------
@@ -130,7 +131,7 @@ void StackArray<DataType>::clear()
 // Removes all the data items from a stack.
 
 {
-    top = -1;
+	top = -1;
 }
 
 //--------------------------------------------------------------------
@@ -141,7 +142,7 @@ bool StackArray<DataType>::isEmpty() const
 // Returns true if a stack is empty. Otherwise, returns false.
 
 {
-    return top == -1;
+	return top == -1;
 }
 
 //--------------------------------------------------------------------
@@ -152,7 +153,7 @@ bool StackArray<DataType>::isFull() const
 // Returns true if a stack is full. Otherwise, returns false.
 
 {
-    return top == maxSize - 1;
+	return top == maxSize - 1;
 }
 
 //--------------------------------------------------------------------
@@ -165,29 +166,29 @@ void StackArray<DataType>::showStructure() const
 // for testing and debugging purposes only.
 
 {
-    if( isEmpty() ) {
-	cout << "Empty stack." << endl;
-    }
-    else {
-	int j;
-	cout << "top = " << top << endl;
-	for ( j = 0 ; j < maxSize ; j++ )
-	    cout << j << "\t";
-	cout << endl;
-	for ( j = 0 ; j <= top  ; j++ )
-	{
-	    if( j == top )
-	    {
-	        cout << '[' << dataItems[j] << ']'<< "\t"; // Identify top
-	    }
-	    else
-	    {
-		cout << dataItems[j] << "\t";
-	    }
+	if( isEmpty() ) {
+		cout << "Empty stack." << endl;
+	}
+	else {
+		int j;
+		cout << "top = " << top << endl;
+		for ( j = 0 ; j < maxSize ; j++ )
+			cout << j << "\t";
+		cout << endl;
+		for ( j = 0 ; j <= top  ; j++ )
+		{
+			if( j == top )
+			{
+				cout << '[' << dataItems[j] << ']'<< "\t"; // Identify top
+			}
+			else
+			{
+				cout << dataItems[j] << "\t";
+			}
+		}
+		cout << endl;
 	}
 	cout << endl;
-    }
-    cout << endl;
 }
 
 #endif		// #ifndef STACKARRAY_CPP

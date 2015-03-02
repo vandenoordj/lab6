@@ -3,7 +3,7 @@
 //  Laboratory 6                                          StackArray.h
 //
 //  Class declaration for the array implementation of the Stack ADT
-//
+//	John Vande Noord Lane Colwell
 //--------------------------------------------------------------------
 
 #ifndef STACKARRAY_H
@@ -18,38 +18,38 @@ using namespace std;
 
 // ADD YOUR CODE HERE (uncomment and complete the 2nd line below)
 template <typename DataType>
-// class StackLinked      {
+class StackLinked : public Stack<DataType>     {
 
-  public:
+public:
 
-    StackLinked(int maxNumber = Stack<DataType>::MAX_STACK_SIZE);
-    StackLinked(const StackLinked& other);
-    StackLinked& operator=(const StackLinked& other);
-    ~StackLinked();
+	StackLinked(int maxNumber = Stack<DataType>::MAX_STACK_SIZE);
+	StackLinked(const StackLinked& other);
+	StackLinked& operator=(const StackLinked& other);
+	~StackLinked();
 
-    void push(const DataType& newDataItem) throw (logic_error);
-    DataType pop() throw (logic_error);
+	void push(const DataType& newDataItem) throw (logic_error);
+	DataType pop() throw (logic_error);
 
-    void clear();
+	void clear();
 
-    bool isEmpty() const;
+	bool isEmpty() const;
 
-    // ADD YOUR CODE HERE (need to declare one more member function)
+	// ADD YOUR CODE HERE (need to declare one more member function)
 
+	bool isFull() const;
+	void showStructure() const;
 
-    void showStructure() const;
+private:
 
-  private:
+	class StackNode {
+	public:
+		StackNode(const DataType& nodeData, StackNode* nextPtr);
 
-    class StackNode {
-      public:
-	StackNode(const DataType& nodeData, StackNode* nextPtr);
+		DataType dataItem;
+		StackNode* next;
+	};
 
-	DataType dataItem;
-	StackNode* next;
-    };
-
-    StackNode* top;
+	StackNode* top;
 };
 
 #endif		//#ifndef STACKARRAY_H
